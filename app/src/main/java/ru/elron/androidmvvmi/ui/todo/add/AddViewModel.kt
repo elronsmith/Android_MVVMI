@@ -10,7 +10,7 @@ import androidx.savedstate.SavedStateRegistryOwner
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.koin.java.KoinJavaComponent
+import ru.elron.androidmvvmi.di.DI
 import ru.elron.libdb.TodoManager
 import ru.elron.libmvi.BaseViewModel
 
@@ -22,7 +22,7 @@ class AddViewModel(application: Application, stateHandle: SavedStateHandle, val 
         AddState.Nothing
     ) {
 
-    private val manager: TodoManager by KoinJavaComponent.inject(TodoManager::class.java)
+    private val manager: TodoManager = DI.todoManager
 
     private val isEditing: Boolean
         get() = id != 0L

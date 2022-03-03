@@ -12,8 +12,8 @@ import androidx.savedstate.SavedStateRegistryOwner
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.koin.java.KoinJavaComponent
 import ru.elron.androidmvvmi.R
+import ru.elron.androidmvvmi.di.DI
 import ru.elron.androidmvvmi.extensions.toTodoObservable
 import ru.elron.androidmvvmi.observable.KeylayoutItemViewHolder
 import ru.elron.androidmvvmi.observable.TodoObservable
@@ -31,7 +31,7 @@ class TodoViewModel(application: Application, stateHandle: SavedStateHandle) :
         TodoState.Nothing
     ), OnItemClickViewHolderCallback {
 
-    private val manager: TodoManager by KoinJavaComponent.inject(TodoManager::class.java)
+    private val manager: TodoManager = DI.todoManager
 
     val adapter = RecyclerAdapter<TodoObservable>()
 

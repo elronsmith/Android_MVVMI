@@ -1,9 +1,10 @@
 package ru.elron.androidmvvmi
 
 import android.app.Application
-import org.koin.android.ext.koin.androidContext
-import org.koin.core.context.startKoin
-import ru.elron.androidmvvmi.di.appModule
+import ru.elron.androidmvvmi.di.AppComponent
+import ru.elron.androidmvvmi.di.AppModule
+import ru.elron.androidmvvmi.di.DaggerAppComponent
+import ru.elron.androidmvvmi.di.TodoDBModule
 
 /**
  * приложение список дел
@@ -12,15 +13,16 @@ import ru.elron.androidmvvmi.di.appModule
 class App : Application() {
     companion object {
         lateinit var INSTANCE: App
+        lateinit var DI: AppComponent
     }
 
     override fun onCreate() {
         super.onCreate()
         INSTANCE = this
 
-        startKoin {
-            androidContext(this@App)
-            modules(appModule)
-        }
+        DI = DaggerAppComponent.builder()
+            .appModule(AppModule(this))
+            .todoDBModule(TodoDBModule())
+            .build()
     }
 }
