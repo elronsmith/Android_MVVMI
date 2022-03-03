@@ -6,10 +6,6 @@ import ru.elron.androidmvvmi.di.AppModule
 import ru.elron.androidmvvmi.di.DaggerAppComponent
 import ru.elron.androidmvvmi.di.TodoDBModule
 
-/**
- * приложение список дел
- * стек: DataBinding, ViewModel, Coroutines, LiveData, 	Room, Retrofit, Koin,	GSON
- */
 class App : Application() {
     companion object {
         lateinit var INSTANCE: App
