@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">To Do</string>
+    <string name="menu_add">Add</string>
+    <string name="menu_save">Save</string>
+    <string name="button_remove">Remove</string>
+    <string name="dialog_todo_remove_title">Remove</string>
+    <string name="dialog_todo_remove_message">Remove \"%s\" ?</string>
+</resources>
