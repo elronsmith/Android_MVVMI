@@ -58,6 +58,7 @@ dependencies {
 
     implementation project(path: ':libMVI')
     implementation project(path: ':libResources')
+    implementation project(path: ':libNET')
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
