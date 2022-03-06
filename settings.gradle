@@ -12,7 +12,7 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "AndroidMVVMI"
+rootProject.name = "To do v1"
 include ':app'
 include ':libResources'
 include ':libMVI'

@@ -15,8 +15,8 @@ import kotlinx.coroutines.withContext
 import org.koin.java.KoinJavaComponent
 import ru.elron.androidmvvmi.R
 import ru.elron.androidmvvmi.extensions.toTodoObservable
-import ru.elron.androidmvvmi.observable.KeylayoutItemViewHolder
-import ru.elron.androidmvvmi.observable.TodoObservable
+import ru.elron.androidmvvmi.observable.TodoItemViewHolder
+import ru.elron.androidmvvmi.observable.TodoItemObservable
 import ru.elron.libdb.TodoManager
 import ru.elron.libmvi.BaseViewModel
 import ru.elron.libresources.AObservable
@@ -33,10 +33,10 @@ class TodoViewModel(application: Application, stateHandle: SavedStateHandle) :
 
     private val manager: TodoManager by KoinJavaComponent.inject(TodoManager::class.java)
 
-    val adapter = RecyclerAdapter<TodoObservable>()
+    val adapter = RecyclerAdapter<TodoItemObservable>()
 
     init {
-        KeylayoutItemViewHolder.addViewHolder(adapter.holderBuilderArray, this)
+        TodoItemViewHolder.addViewHolder(adapter.holderBuilderArray, this)
     }
 
     override fun getNewEntity(): TodoEntity = TodoEntity()
@@ -67,17 +67,17 @@ class TodoViewModel(application: Application, stateHandle: SavedStateHandle) :
     override fun onItemClick(v: View?, observable: AObservable, position: Int) {
         when (v) {
             is CheckBox -> {
-                val o = observable as TodoObservable
+                val o = observable as TodoItemObservable
                 o.isChecked = v.isChecked
             }
             else -> {
                 when (v?.id) {
                     R.id.text -> {
-                        val id = (observable as TodoObservable).id
+                        val id = (observable as TodoItemObservable).id
                         eventLiveData.postValue(TodoEvent.ShowScreenEdit(id))
                     }
                     R.id.remove -> {
-                        val o = observable as TodoObservable
+                        val o = observable as TodoItemObservable
                         val text = o.text.replace("\n", "").take(10)
                         eventLiveData.postValue(TodoEvent.Remove(position, text))
                     }

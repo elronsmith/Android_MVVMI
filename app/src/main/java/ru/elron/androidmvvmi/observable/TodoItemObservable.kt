@@ -10,7 +10,7 @@ import ru.elron.libresources.ClickableViewHolder
 import ru.elron.libresources.OnItemClickViewHolderCallback
 import ru.elron.libresources.ViewHolderBuilder
 
-class TodoObservable : AObservable {
+class TodoItemObservable : AObservable {
     var id = 0L
     var isChecked = false
     var text = ""
@@ -18,14 +18,14 @@ class TodoObservable : AObservable {
     internal constructor(id: Int) : super(id)
 
     companion object {
-        fun obtainObservable(): TodoObservable {
-            return TodoObservable(KeylayoutItemViewHolder.ID)
+        fun obtainObservable(): TodoItemObservable {
+            return TodoItemObservable(TodoItemViewHolder.ID)
         }
     }
 
 }
 
-class KeylayoutItemViewHolder(
+class TodoItemViewHolder(
     val binding: ItemTodoBinding,
     callback: OnItemClickViewHolderCallback
 ) : ClickableViewHolder(binding.root, callback) {
@@ -38,7 +38,7 @@ class KeylayoutItemViewHolder(
         ) {
             builderList.put(ID, object : ViewHolderBuilder {
                 override fun create(parent: ViewGroup): ru.elron.libresources.ViewHolder<*> {
-                    return KeylayoutItemViewHolder(
+                    return TodoItemViewHolder(
                         ItemTodoBinding.inflate(
                             LayoutInflater.from(parent.context), parent, false
                         ),
@@ -50,7 +50,7 @@ class KeylayoutItemViewHolder(
     }
 
     override fun update(position: Int) {
-        val o = callback.getObservable(position) as TodoObservable
+        val o = callback.getObservable(position) as TodoItemObservable
 
         binding.text.text = o.text
         binding.checked.isChecked = o.isChecked
