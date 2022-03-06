@@ -1,6 +1,6 @@
 package ru.elron.libnet.model
 
-class ForecastWeather5day {
+class ForecastWeather5dayResponse {
     var list: List<WeatherItem>? = null
     var city: City? = null
 

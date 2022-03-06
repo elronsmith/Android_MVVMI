@@ -2,4 +2,9 @@
     <string name="app_name">Weather</string>
     <string name="title_cities">Cities</string>
     <string name="title_search">Search</string>
+
+    <string name="button_ok">OK</string>
+
+    <string name="dialog_error_unknown_title">Error</string>
+    <string name="dialog_error_unknown_message">Something went wrong</string>
 </resources>

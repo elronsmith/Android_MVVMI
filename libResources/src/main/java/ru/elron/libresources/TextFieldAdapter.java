@@ -3,6 +3,7 @@ package ru.elron.libresources;
 import android.annotation.SuppressLint;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -55,5 +56,10 @@ public class TextFieldAdapter {
     @BindingAdapter({"app:editorActionListener"})
     public static void setOnEditorActionListener(EditText view, TextView.OnEditorActionListener listener) {
         view.setOnEditorActionListener(listener);
+    }
+
+    @BindingAdapter({"app:onKeyListener"})
+    public static void setOnKeyListener(EditText view, View.OnKeyListener listener) {
+        view.setOnKeyListener(listener);
     }
 }

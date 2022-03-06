@@ -23,8 +23,8 @@ class RequestsTest {
         val units = "metric"
         val exclude = "minutely,hourly"
 
-        val authRequests = NetRepository.obtainRequests(retrofit)
-        val call = authRequests.getForecastWeather5day(city, token, units, exclude)
+        val requests = NetRepository.obtainRequests(retrofit)
+        val call = requests.getForecastWeather5day(city, token, units, exclude)
 
         val response = call.execute()
         val code = response.code()
