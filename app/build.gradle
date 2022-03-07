@@ -56,11 +56,16 @@ dependencies {
 
     implementation "io.insert-koin:koin-android:$koin_version"
 
+    implementation "com.google.code.gson:gson:$gson_version"
+
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+
+    implementation "androidx.room:room-runtime:$room_version"
 
     implementation project(path: ':libMVI')
     implementation project(path: ':libResources')
     implementation project(path: ':libNET')
+    implementation project(path: ':libDB')
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
