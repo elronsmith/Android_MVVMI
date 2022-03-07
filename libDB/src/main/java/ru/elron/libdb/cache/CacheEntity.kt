@@ -16,6 +16,9 @@ data class CacheEntity(
     @ColumnInfo(name = "date")
     var date: String,
 
+    @ColumnInfo(name = "dt")
+    var dt: Long,
+
     @ColumnInfo(name = "temperature")
     var temperature: String,
 

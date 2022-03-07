@@ -14,11 +14,23 @@ abstract class CacheDao {
     @Query("SELECT * FROM $TABLE_NAME WHERE id = :cityId")
     abstract fun getCityOrNull(cityId: Long): CacheEntity?
 
+    @Query("SELECT * FROM $TABLE_NAME WHERE city LIKE :city")
+    abstract fun getCityByNameOrNull(city: String): CacheEntity?
+
+    @Query("SELECT * FROM $TABLE_NAME WHERE dt BETWEEN :start AND :end")
+    abstract fun getOldCityList(start: Long, end: Long): List<CacheEntity>
+
+    @Query("SELECT dt FROM $TABLE_NAME")
+    abstract fun getDateList(): List<Long>
+
+    @Query("SELECT * FROM $TABLE_NAME WHERE dt = :dt")
+    abstract fun getCityByDtOrNull(dt: Long): CacheEntity?
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun setCity(entity: CacheEntity)
 
     @Delete
-    abstract fun delete(work: CacheEntity)
+    abstract fun delete(entity: CacheEntity)
 
     @Query("DELETE FROM $TABLE_NAME WHERE id = :cityId")
     abstract fun delete(cityId: Long)

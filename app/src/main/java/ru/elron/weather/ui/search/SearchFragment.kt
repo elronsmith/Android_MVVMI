@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import ru.elron.libmvi.BaseFragment
 import ru.elron.libmvi.BaseViewModel
@@ -21,6 +22,7 @@ class SearchFragment : BaseFragment<SearchEntity, SearchState, SearchEvent>(),
     companion object {
         private const val DIALOG_ERROR = 100
         private const val DIALOG_ERROR_UNKNOWN = 101
+        private const val DIALOG_ERROR_INTERNET = 102
     }
 
     private lateinit var binding: FragmentSearchBinding
@@ -47,6 +49,13 @@ class SearchFragment : BaseFragment<SearchEntity, SearchState, SearchEvent>(),
 
     override fun onEvent(event: SearchEvent) {
         when (event) {
+            is SearchEvent.ShowScreenWeather -> {
+                findNavController().navigate(
+                    SearchFragmentDirections.actionNavigationSearchToWeatherFragment(
+                        event.cityId
+                    )
+                )
+            }
             is SearchEvent.ShowDialogError -> {
                 LifecycleDialogFragment()
                     .withId(DIALOG_ERROR)
@@ -60,6 +69,15 @@ class SearchFragment : BaseFragment<SearchEntity, SearchState, SearchEvent>(),
             SearchEvent.ShowDialogErrorUnknown -> {
                 LifecycleDialogFragment()
                     .withId(DIALOG_ERROR_UNKNOWN)
+                    .withChildFragmentId(
+                        ru.elron.weather.R.id.nav_host_fragment_activity_main,
+                        id
+                    )
+                    .show(requireActivity())
+            }
+            SearchEvent.ShowDialogErrorInternet -> {
+                LifecycleDialogFragment()
+                    .withId(DIALOG_ERROR_INTERNET)
                     .withChildFragmentId(
                         ru.elron.weather.R.id.nav_host_fragment_activity_main,
                         id
@@ -85,6 +103,11 @@ class SearchFragment : BaseFragment<SearchEntity, SearchState, SearchEvent>(),
             DIALOG_ERROR_UNKNOWN -> {
                 builder.setTitle(R.string.dialog_error_unknown_title)
                 builder.setMessage(R.string.dialog_error_unknown_message)
+                builder.setPositiveButton(R.string.button_ok, null)
+            }
+            DIALOG_ERROR_INTERNET -> {
+                builder.setTitle(R.string.dialog_error_internet_title)
+                builder.setMessage(R.string.dialog_error_internet_message)
                 builder.setPositiveButton(R.string.button_ok, null)
             }
         }

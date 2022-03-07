@@ -47,4 +47,15 @@ public class DataBindingAdapters {
     public static void viewVisibleGone(View view, boolean value) {
         view.setVisibility(value ? View.VISIBLE : View.GONE);
     }
+
+    @BindingAdapter({"app:onClick"})
+    public static void viewOnClick(View view, View.OnClickListener listener) {
+        view.setOnClickListener(listener);
+    }
+
+    @BindingAdapter({"app:src"})
+    public static void imageDrawable(ImageView imageView, Integer drawableRes) {
+        imageView.setImageResource(drawableRes);
+    }
+
 }

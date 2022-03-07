@@ -3,11 +3,11 @@ package ru.elron.libnet
 import retrofit2.Call
 import retrofit2.Response
 
-fun <T> Call<T>.executeOrNull(): Response<T>? {
+fun <T> Call<T>.executeOrNull(): Pair<Response<T>?, Exception?> {
     return try {
-        execute()
+        Pair(execute(), null)
     } catch (e: Exception) {
         e.printStackTrace()
-        null
+        Pair(null, e)
     }
 }

@@ -104,6 +104,9 @@ class SearchViewModel(application: Application, stateHandle: SavedStateHandle) :
                 ForecastWeather5dayResult.UnknownError -> {
                     eventLiveData.postValue(SearchEvent.ShowDialogErrorUnknown)
                 }
+                ForecastWeather5dayResult.ErrorInternet -> {
+                    eventLiveData.postValue(SearchEvent.ShowDialogErrorInternet)
+                }
             }
 
             withContext(Dispatchers.Main) {
@@ -124,6 +127,9 @@ class SearchViewModel(application: Application, stateHandle: SavedStateHandle) :
     override fun onItemClick(v: View?, observable: AObservable, position: Int) {
         if (!isButtonsEnabled)
             return
+
+        val cityId = (observable as SearchItemObservable).id
+        eventLiveData.postValue(SearchEvent.ShowScreenWeather(cityId))
     }
 
     override fun getObservable(position: Int): AObservable = adapter.observableList[position]

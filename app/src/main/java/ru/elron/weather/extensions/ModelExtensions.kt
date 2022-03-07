@@ -1,13 +1,31 @@
 package ru.elron.weather.extensions
 
+import com.google.gson.Gson
+import ru.elron.libdb.cache.CacheEntity
+import ru.elron.libdb.favorite.FavoriteEntity
 import ru.elron.libnet.model.ForecastWeather5dayResponse
+import ru.elron.weather.di.getKoinInstance
 import ru.elron.weather.observable.SearchItemObservable
+
+val ForecastWeather5dayResponse.cityId: Long
+    get() = city?.id ?: 0L
+
+val ForecastWeather5dayResponse.cityName: String
+    get() = city?.name ?: ""
 
 fun ForecastWeather5dayResponse.getLastTemperatureOrNull(): Double? {
     if (list.isNullOrEmpty())
         return null
 
     return list!![0].main?.temp
+}
+
+fun ForecastWeather5dayResponse.getTemperature(): String {
+    if (list.isNullOrEmpty())
+        return ""
+
+    val temp = list!![0].main?.temp
+    return temp?.toInt()?.toString() ?: ""
 }
 
 fun ForecastWeather5dayResponse.getLastDateOrNull(): String? {
@@ -20,10 +38,46 @@ fun ForecastWeather5dayResponse.getLastDateOrNull(): String? {
 fun ForecastWeather5dayResponse.toSearchItemObservable(): SearchItemObservable {
     val o = SearchItemObservable.obtainObservable()
 
-    o.id = city?.id ?: 0L
-    o.city = city?.name ?: "?"
+    o.id = cityId
+    o.city = cityName.ifBlank { "?" }
     val temp = getLastTemperatureOrNull()
-    o.temperature = if (temp != null) temp.toInt().toString() else "?"
+    o.temperature = temp?.toInt()?.toString() ?: "?"
     o.date = getLastDateOrNull() ?: "?"
     return o
+}
+
+fun ForecastWeather5dayResponse.toStringJson(): String {
+    val gson: Gson = getKoinInstance()
+    return gson.toJson(this)
+}
+
+fun ForecastWeather5dayResponse.toCacheEntity(): CacheEntity {
+    val json = this.toStringJson()
+    val id = this.cityId
+    val city = this.cityName
+    val date = this.getLastDateOrNull() ?: ""
+    val temperature = this.getLastTemperatureOrNull()
+
+    return CacheEntity(
+        id,
+        city,
+        date,
+        0L,
+        temperature?.toInt()?.toString() ?: "",
+        json
+    )
+}
+
+fun CacheEntity.toForecastWeather5dayResponse(): ForecastWeather5dayResponse {
+    val gson: Gson = getKoinInstance()
+    return gson.fromJson(data, ForecastWeather5dayResponse::class.java)
+}
+
+fun CacheEntity.toFavoriteEntity(): FavoriteEntity {
+    return FavoriteEntity(id, city, date, temperature, data)
+}
+
+fun FavoriteEntity.toForecastWeather5dayResponse(): ForecastWeather5dayResponse {
+    val gson: Gson = getKoinInstance()
+    return gson.fromJson(data, ForecastWeather5dayResponse::class.java)
 }
