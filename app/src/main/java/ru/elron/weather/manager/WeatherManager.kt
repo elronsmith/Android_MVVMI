@@ -1,6 +1,7 @@
 package ru.elron.weather.manager
 
 import ru.elron.libdb.cache.CacheEntity
+import ru.elron.libdb.favorite.FavoriteEntity
 import ru.elron.libnet.ErrorResponseParser
 import ru.elron.libnet.IRequests
 import ru.elron.libnet.NetRepository
@@ -110,6 +111,10 @@ class WeatherManager(
 
     fun removeFavorite(cityId: Long) {
         favoriteRepository.remove(cityId)
+    }
+
+    fun getFavoriteList(): List<FavoriteEntity> {
+        return favoriteRepository.getList()
     }
 }
 

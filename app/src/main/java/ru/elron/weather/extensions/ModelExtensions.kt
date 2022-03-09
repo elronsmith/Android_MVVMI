@@ -81,3 +81,14 @@ fun FavoriteEntity.toForecastWeather5dayResponse(): ForecastWeather5dayResponse 
     val gson: Gson = getKoinInstance()
     return gson.fromJson(data, ForecastWeather5dayResponse::class.java)
 }
+
+fun FavoriteEntity.toSearchItemObservable(): SearchItemObservable {
+    val o = SearchItemObservable.obtainObservable()
+    o.id = id
+    o.city = city
+    o.temperature = temperature
+    o.date = date
+
+    return o
+}
+

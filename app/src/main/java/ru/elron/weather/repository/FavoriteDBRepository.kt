@@ -4,6 +4,10 @@ import ru.elron.libdb.favorite.FavoriteDao
 import ru.elron.libdb.favorite.FavoriteEntity
 
 class FavoriteDBRepository(private val favoriteDao: FavoriteDao) {
+    fun getList(): List<FavoriteEntity> {
+        return favoriteDao.getList()
+    }
+
     fun getCityOrNull(cityId: Long): FavoriteEntity? {
         return favoriteDao.getCityOrNull(cityId)
     }

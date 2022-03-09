@@ -9,7 +9,11 @@
         android:id="@+id/navigation_home"
         android:name="ru.elron.weather.ui.home.HomeFragment"
         android:label="@string/title_cities"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_weatherFragment"
+            app:destination="@id/weatherFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_search"
