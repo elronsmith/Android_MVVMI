@@ -74,6 +74,13 @@ class WeatherFragment : BaseFragment<WeatherEntity, WeatherState, WeatherEvent>(
             WeatherEvent.ShowDialogRemoveFavoriteSuccess -> {
                 showToast(R.string.toast_success)
             }
+            WeatherEvent.ShowScreenForecast -> {
+                findNavController().navigate(
+                    WeatherFragmentDirections.actionWeatherFragmentToForecastFragment(
+                        args.cityId
+                    )
+                )
+            }
         }
     }
 

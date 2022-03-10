@@ -5,7 +5,13 @@ import ru.elron.libdb.cache.CacheEntity
 import ru.elron.libdb.favorite.FavoriteEntity
 import ru.elron.libnet.model.ForecastWeather5dayResponse
 import ru.elron.weather.di.getKoinInstance
+import ru.elron.weather.extensions.ConstExtensions.stringBuilder
+import ru.elron.weather.observable.ForecastItemObservable
 import ru.elron.weather.observable.SearchItemObservable
+
+object ConstExtensions {
+    val stringBuilder = StringBuilder()
+}
 
 val ForecastWeather5dayResponse.cityId: Long
     get() = city?.id ?: 0L
@@ -92,3 +98,29 @@ fun FavoriteEntity.toSearchItemObservable(): SearchItemObservable {
     return o
 }
 
+fun ForecastWeather5dayResponse.WeatherItem.toForecastItemObservable(): ForecastItemObservable {
+    val o = ForecastItemObservable.obtainObservable()
+    stringBuilder.setLength(0)
+
+    val date = dt_txt ?: "?"
+    val temp = main?.temp?.toInt() ?: 99
+    val pressure = main?.pressure ?: '?'
+    val humidity = main?.humidity ?: '?'
+    val speed = wind?.speed?.toInt() ?: 0
+
+    with(stringBuilder) {
+        append(date)
+        append("\n")
+        append("Temperature: $temp°")
+        append("\n")
+        append("Pressure: $pressure")
+        append("\n")
+        append("Humidity: $humidity")
+        append("\n")
+        append("Wind speed: $speed")
+    }
+
+    o.info = stringBuilder.toString()
+
+    return o
+}

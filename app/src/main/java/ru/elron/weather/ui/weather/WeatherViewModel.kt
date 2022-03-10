@@ -41,11 +41,16 @@ class WeatherViewModel(application: Application, stateHandle: SavedStateHandle, 
             performAddFavorite()
     }
 
+    private val forecastListener = View.OnClickListener {
+        eventLiveData.postValue(WeatherEvent.ShowScreenForecast)
+    }
+
     override fun getNewEntity(): WeatherEntity = WeatherEntity()
 
     override fun setupEntity() {
         entity.addListener = addListener
         entity.backListener = backListener
+        entity.forecastListener = forecastListener
     }
 
     override fun onCreateView() {

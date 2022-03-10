@@ -21,6 +21,7 @@ class WeatherEntity : AEntity {
 
     var backListener: View.OnClickListener? = null
     var addListener: View.OnClickListener? = null
+    var forecastListener: View.OnClickListener? = null
 
     val isFavorite: Boolean
         get() = addIconRes.get() == ICON_ACTION_REMOVE

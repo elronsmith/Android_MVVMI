@@ -8,29 +8,27 @@ import ru.elron.libresources.ClickableViewHolder
 import ru.elron.libresources.OnItemClickViewHolderCallback
 import ru.elron.libresources.ViewHolderBuilder
 import ru.elron.weather.R
-import ru.elron.weather.databinding.ItemSearchBinding
+import ru.elron.weather.databinding.ItemForecastBinding
 
-class SearchItemObservable : AObservable {
+class ForecastItemObservable : AObservable {
     var id = 0L
-    var city = ""
-    var temperature = ""
-    var date = ""
+    var info = ""
 
     internal constructor(layoutId: Int) : super(layoutId)
 
     companion object {
-        fun obtainObservable(): SearchItemObservable {
-            return SearchItemObservable(SearchItemViewHolder.ID)
+        fun obtainObservable(): ForecastItemObservable {
+            return ForecastItemObservable(ForecastItemViewHolder.ID)
         }
     }
 }
 
-class SearchItemViewHolder(
-    val binding: ItemSearchBinding,
+class ForecastItemViewHolder(
+    val binding: ItemForecastBinding,
     callback: OnItemClickViewHolderCallback
 ) : ClickableViewHolder(binding.root, callback) {
     companion object {
-        const val ID = R.layout.item_search
+        const val ID = R.layout.item_forecast
 
         fun addViewHolder(
             builderList: SparseArrayCompat<ViewHolderBuilder>,
@@ -38,8 +36,8 @@ class SearchItemViewHolder(
         ) {
             builderList.put(ID, object : ViewHolderBuilder {
                 override fun create(parent: ViewGroup): ru.elron.libresources.ViewHolder<*> {
-                    return SearchItemViewHolder(
-                        ItemSearchBinding.inflate(
+                    return ForecastItemViewHolder(
+                        ItemForecastBinding.inflate(
                             LayoutInflater.from(parent.context), parent, false
                         ),
                         callback
@@ -50,12 +48,7 @@ class SearchItemViewHolder(
     }
 
     override fun update(position: Int) {
-        val o = callback.getObservable(position) as SearchItemObservable
-
-        binding.city.text = o.city
-        binding.temperature.text = o.temperature
-        binding.date.text = o.date
-
-        binding.root.setOnClickListener(this)
+        val o = callback.getObservable(position) as ForecastItemObservable
+        binding.infoTextView.text = o.info
     }
 }
