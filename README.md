@@ -1,3 +1,3 @@
-# Android_MVVMI
-## Branches
+# To do
+## Libraries
 DataBinding, Navigation, ViewModel, LiveData, Coroutines, Room, Koin
