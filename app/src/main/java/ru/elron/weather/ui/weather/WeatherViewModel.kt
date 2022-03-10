@@ -14,8 +14,7 @@ import kotlinx.coroutines.withContext
 import org.koin.java.KoinJavaComponent
 import ru.elron.libmvi.BaseViewModel
 import ru.elron.libnet.model.ForecastWeather5dayResponse
-import ru.elron.weather.extensions.cityName
-import ru.elron.weather.extensions.getTemperature
+import ru.elron.weather.extensions.*
 import ru.elron.weather.manager.AddFavoriteResult
 import ru.elron.weather.manager.GetWeatherResult
 import ru.elron.weather.manager.WeatherManager
@@ -29,6 +28,7 @@ class WeatherViewModel(application: Application, stateHandle: SavedStateHandle, 
     ) {
 
     private val manager: WeatherManager by KoinJavaComponent.inject(WeatherManager::class.java)
+    private val stringBuilder = StringBuilder()
 
     private val backListener = View.OnClickListener {
         eventLiveData.postValue(WeatherEvent.Back)
@@ -79,7 +79,25 @@ class WeatherViewModel(application: Application, stateHandle: SavedStateHandle, 
     private suspend fun handleGetCity(response: ForecastWeather5dayResponse) {
         val cityName = response.cityName
         val temperature = response.getTemperature()
-        val data = "Temperature: $temperature"
+        val description = response.getLastDescriptionOrNull() ?: "?"
+        val windSpeed = response.getLastWindSpeedOrNull() ?: "?"
+        val humidity = response.getLastHumidityOrNull() ?: "?"
+        val date = response.getLastDateOrNull() ?: "?"
+
+        with(stringBuilder) {
+            setLength(0)
+            append("Temperature: $temperature")
+            append("\n")
+            append("Description: $description")
+            append("\n")
+            append("Wind: $windSpeed")
+            append("\n")
+            append("Humidity: $humidity")
+            append("\n")
+            append("Date: $date")
+        }
+
+        val data = stringBuilder.toString()
 
         withContext(Dispatchers.Main) {
             entity.title.set(cityName)

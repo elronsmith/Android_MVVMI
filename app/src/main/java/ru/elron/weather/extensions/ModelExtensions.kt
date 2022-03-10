@@ -41,6 +41,27 @@ fun ForecastWeather5dayResponse.getLastDateOrNull(): String? {
     return list!![0].dt_txt
 }
 
+fun ForecastWeather5dayResponse.getLastDescriptionOrNull(): String? {
+    if (list.isNullOrEmpty())
+        return null
+
+    return list!![0].weather?.get(0)?.description
+}
+
+fun ForecastWeather5dayResponse.getLastWindSpeedOrNull(): String? {
+    if (list.isNullOrEmpty())
+        return null
+
+    return list!![0].wind?.speed?.toInt().toString()
+}
+
+fun ForecastWeather5dayResponse.getLastHumidityOrNull(): String? {
+    if (list.isNullOrEmpty())
+        return null
+
+    return list!![0].main?.humidity.toString()
+}
+
 fun ForecastWeather5dayResponse.toSearchItemObservable(): SearchItemObservable {
     val o = SearchItemObservable.obtainObservable()
 
