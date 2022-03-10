@@ -30,7 +30,20 @@ class WeatherEntity : AEntity {
         get() = actionsEnabled.get()
 
     constructor() : super()
-    constructor(parcel: Parcel) : super(parcel)
+    constructor(parcel: Parcel) : super(parcel) {
+        title.set(parcel.readString() ?: "")
+        data.set(parcel.readString() ?: "")
+        addIconRes.set(parcel.readInt())
+        actionsEnabled.set(parcel.readInt() == 1)
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        super.writeToParcel(parcel, flags)
+        parcel.writeString(title.get())
+        parcel.writeString(data.get())
+        parcel.writeInt(addIconRes.get())
+        parcel.writeInt(if (actionsEnabled.get()) 1 else 0)
+    }
 
     override fun describeContents(): Int = 0
 

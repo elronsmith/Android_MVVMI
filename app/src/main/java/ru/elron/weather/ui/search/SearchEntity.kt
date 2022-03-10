@@ -26,7 +26,18 @@ class SearchEntity : AEntity {
     var onKeyListener: View.OnKeyListener? = null
 
     constructor() : super()
-    constructor(parcel: Parcel) : super(parcel)
+    constructor(parcel: Parcel) : super(parcel) {
+        city.set(parcel.readString() ?: "")
+        progressVisible.set(parcel.readInt() == 1)
+        searchEnabled.set(parcel.readInt() == 1)
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        super.writeToParcel(parcel, flags)
+        parcel.writeString(city.get())
+        parcel.writeInt(if (progressVisible.get()) 1 else 0)
+        parcel.writeInt(if (searchEnabled.get()) 1 else 0)
+    }
 
     override fun describeContents(): Int = 0
 

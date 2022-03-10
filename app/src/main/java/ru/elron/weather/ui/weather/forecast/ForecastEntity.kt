@@ -14,7 +14,16 @@ class ForecastEntity : AEntity {
     var backListener: View.OnClickListener? = null
 
     constructor() : super()
-    constructor(parcel: Parcel) : super(parcel)
+    constructor(parcel: Parcel) : super(parcel) {
+        title.set(parcel.readString() ?: "")
+        emptyVisible.set(parcel.readInt() == 1)
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        super.writeToParcel(parcel, flags)
+        parcel.writeString(title.get())
+        parcel.writeInt(if (emptyVisible.get()) 1 else 0)
+    }
 
     override fun describeContents(): Int = 0
 
