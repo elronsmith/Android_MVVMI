@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_orientation">
 
     <fragment
-        android:id="@+id/nav_home"
-        android:name="ru.elron.sensors.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/nav_orientation"
+        android:name="ru.elron.sensors.ui.sensor.orientation.OrientationFragment"
+        android:label="@string/menu_orientation"
+        tools:layout="@layout/fragment_orientation" />
 
 </navigation>
