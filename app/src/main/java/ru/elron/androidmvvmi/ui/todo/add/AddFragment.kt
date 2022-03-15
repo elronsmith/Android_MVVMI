@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import ru.elron.androidmvvmi.App
 import ru.elron.androidmvvmi.databinding.FragmentTodoAddBinding
 import ru.elron.libmvi.BaseFragment
 import ru.elron.libmvi.BaseViewModel
@@ -20,7 +19,7 @@ class AddFragment : BaseFragment<AddEntity, AddState, AddEvent>() {
     private lateinit var binding: FragmentTodoAddBinding
     val viewModel: AddViewModel by viewModels {
         AddViewModelFactory(
-            App.INSTANCE,
+            requireActivity().application,
             this,
             id = args.id
         )
