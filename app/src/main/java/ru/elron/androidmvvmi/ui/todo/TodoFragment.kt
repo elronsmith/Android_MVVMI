@@ -9,7 +9,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import ru.elron.androidmvvmi.App
 import ru.elron.androidmvvmi.databinding.FragmentTodoBinding
 import ru.elron.libmvi.BaseFragment
 import ru.elron.libmvi.BaseViewModel
@@ -25,7 +24,7 @@ class TodoFragment : BaseFragment<TodoEntity, TodoState, TodoEvent>(),
     private lateinit var binding: FragmentTodoBinding
     val viewModel: TodoViewModel by viewModels {
         TodoViewModelFactory(
-            App.INSTANCE,
+            requireActivity().application,
             this
         )
     }
