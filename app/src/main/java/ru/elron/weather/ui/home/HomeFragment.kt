@@ -9,7 +9,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import ru.elron.libmvi.BaseFragment
 import ru.elron.libmvi.BaseViewModel
-import ru.elron.weather.App
 import ru.elron.weather.databinding.FragmentHomeBinding
 
 class HomeFragment : BaseFragment<HomeEntity, HomeState, HomeEvent>() {
@@ -17,7 +16,7 @@ class HomeFragment : BaseFragment<HomeEntity, HomeState, HomeEvent>() {
     private lateinit var binding: FragmentHomeBinding
     val viewModel: HomeViewModel by viewModels {
         HomeViewModelFactory(
-            App.INSTANCE,
+            requireActivity().application,
             this
         )
     }

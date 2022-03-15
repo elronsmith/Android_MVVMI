@@ -14,7 +14,6 @@ import ru.elron.libmvi.BaseFragment
 import ru.elron.libmvi.BaseViewModel
 import ru.elron.libresources.LifecycleDialogFragment
 import ru.elron.libresources.R
-import ru.elron.weather.App
 import ru.elron.weather.databinding.FragmentForecastBinding
 
 class ForecastFragment : BaseFragment<ForecastEntity, ForecastState, ForecastEvent>(),
@@ -28,7 +27,7 @@ class ForecastFragment : BaseFragment<ForecastEntity, ForecastState, ForecastEve
     private lateinit var binding: FragmentForecastBinding
     val viewModel: ForecastViewModel by viewModels {
         ForecastViewModelFactory(
-            App.INSTANCE,
+            requireActivity().application,
             this,
             cityId = args.cityId
         )

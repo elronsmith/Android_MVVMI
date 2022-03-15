@@ -13,7 +13,6 @@ import ru.elron.libmvi.BaseFragment
 import ru.elron.libmvi.BaseViewModel
 import ru.elron.libresources.LifecycleDialogFragment
 import ru.elron.libresources.R
-import ru.elron.weather.App
 import ru.elron.weather.databinding.FragmentSearchBinding
 
 class SearchFragment : BaseFragment<SearchEntity, SearchState, SearchEvent>(),
@@ -28,7 +27,7 @@ class SearchFragment : BaseFragment<SearchEntity, SearchState, SearchEvent>(),
     private lateinit var binding: FragmentSearchBinding
     val viewModel: SearchViewModel by viewModels {
         SearchViewModelFactory(
-            App.INSTANCE,
+            requireActivity().application,
             this
         )
     }

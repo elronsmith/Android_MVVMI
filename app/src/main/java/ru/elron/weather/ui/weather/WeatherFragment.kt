@@ -13,7 +13,6 @@ import ru.elron.libmvi.BaseFragment
 import ru.elron.libmvi.BaseViewModel
 import ru.elron.libresources.LifecycleDialogFragment
 import ru.elron.libresources.R
-import ru.elron.weather.App
 import ru.elron.weather.databinding.FragmentWeatherBinding
 import ru.elron.weather.extensions.showToast
 
@@ -30,7 +29,7 @@ class WeatherFragment : BaseFragment<WeatherEntity, WeatherState, WeatherEvent>(
     private lateinit var binding: FragmentWeatherBinding
     val viewModel: WeatherViewModel by viewModels {
         WeatherViewModelFactory(
-            App.INSTANCE,
+            requireActivity().application,
             this,
             cityId = args.cityId
         )

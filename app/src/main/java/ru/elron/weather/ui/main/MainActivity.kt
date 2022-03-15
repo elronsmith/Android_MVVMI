@@ -8,7 +8,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import ru.elron.libmvi.BaseActivity
 import ru.elron.libmvi.BaseViewModel
-import ru.elron.weather.App
 import ru.elron.weather.R
 import ru.elron.weather.databinding.ActivityMainBinding
 
@@ -17,7 +16,7 @@ class MainActivity : BaseActivity<MainEntity, MainState, MainEvent>() {
     private lateinit var binding: ActivityMainBinding
     val viewModel: MainViewModel by viewModels {
         MainViewModelFactory(
-            App.INSTANCE,
+            application,
             this
         )
     }
