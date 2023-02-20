@@ -5,6 +5,7 @@ pluginManagement {
         mavenCentral()
     }
 }
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -12,7 +13,8 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
+
 rootProject.name = "Sensors"
-include ':app'
-include ':libResources'
-include ':libMVI'
+include ":app"
+include ":libResources"
+include ":libMVI"
